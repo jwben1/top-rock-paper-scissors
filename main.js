@@ -1,7 +1,11 @@
 let computerScore = 0;
 let playerScore = 0;
 
-let playerMove;
+// let playerMove;
+
+const resultsPara = document.querySelector('.score');
+const winnerPara = document.querySelector('.winner');
+const movesPara = document.querySelector('.moves');
 
 const rockBtn = document.querySelector('.rock-btn');
 const paperBtn = document.querySelector('.paper-btn');
@@ -33,32 +37,34 @@ function disableBtn() {
 
 function playGame(playerMove) {
  const computerMove = getcomputerMove();
-
- if (computerScore >= 5) {
-    console.log('You lost');
-    disableBtn();
-    return;
- } else if (playerScore >= 5) {
-    console.log('You win');
-    disableBtn();
-    return;
- }
  
 if (playerMove === 'rock' && computerMove === 'paper' ||
     playerMove === 'paper' && computerMove === 'scissors' ||
     playerMove === 'scissors' && computerMove === 'rock') {
     
-    console.log(`You lost! , You: ${playerMove} vs Computer: ${computerMove}`);
+		movesPara.innerHTML = `You lose! <br> <br> You: ${playerMove} vs Computer: ${computerMove}`;	
     computerScore++;
 } else if (playerMove === 'rock' && computerMove === 'scissors' ||
             playerMove === 'paper' && computerMove === 'rock' ||
             playerMove === 'scissors' && computerMove === 'paper'){
 
-    console.log(`You won! , You: ${playerMove} vs Computer: ${computerMove}`);
+		movesPara.innerHTML = `You win! <br> <br> You: ${playerMove} vs Computer: ${computerMove}`;				
     playerScore++;
 
 } else {
-    console.log(`Tie, You: ${playerMove} vs Computer: ${computerMove}`);
+	movesPara.innerHTML = `Tie! <br> <br> You: ${playerMove} vs Computer: ${computerMove}`;
 }
-console.log(`Computer Score:${computerScore} Player Score:${playerScore}`);
+
+resultsPara.innerHTML = `Your Score:${playerScore} Computer Score:${computerScore}`;
+
+// check if the score is 5 and announce the winner
+if (computerScore === 5) {
+	winnerPara.innerHTML = 'You lost the game!';
+	disableBtn();
+	return;
+} else if (playerScore === 5) {
+	winnerPara.innerHTML = 'You won the game!';
+	disableBtn();
+	return;
+}
 }
